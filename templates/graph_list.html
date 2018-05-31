@@ -1,3 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="container">
+            {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                  {% for err in form.non_field_errors %}
+                    <h4 class="form-error" style="color: red; text-align: center">{{ err }}</h4>
+                  {% endfor %}
+                </div>
+            {% endif %}
+        <form method="post" class="form-group" enctype="multipart/form-data">{% csrf_token %}
+            <label>{{ form.graph_file.label }}</label>
+            {{ form.graph_file }}
+            <p style="color: red">{{ form.graph_file.errors }}</p>
+            <button class="btn btn-success">Загрузить</button>
+        </form>
+        {% for graph in graphs %}
+            <h2>Граф #{{ graph.id }}</h2>
+        {% endfor %}
+    </div>
 {% endblock %}
