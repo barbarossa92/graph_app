@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<node eid="2">TEXT 2</node>
+<node eid="4">TEXT 4</node>
+<node eid="1">TEXT 1</node>
+<node eid="5">TEXT 5</node>
+<node eid="3">TEXT 3</node>
+<node eid="8">TEXT 8</node>
+<node eid="11">TEXT 11</node>
+<group eid="1" groupped="1 2 3">TEXT 6</group>
+<group eid="7" groupped="6 4">TEXT 7</group>
+<group eid="9" groupped="8 5">TEXT 9</group>
+<group eid="10" groupped="7 9">TEXT 10</group>
+</root>

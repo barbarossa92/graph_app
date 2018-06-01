@@ -3,9 +3,10 @@ from django.core.validators import FileExtensionValidator
 import xml.etree.cElementTree as etree
 from django.conf import settings as st
 
+
 class GraphImport(forms.Form):
 
-    graph_file = forms.FileField(label="Создать граф", validators=[FileExtensionValidator(allowed_extensions=['xml'])])
+    graph_file = forms.FileField(label="Импортировать граф", validators=[FileExtensionValidator(allowed_extensions=['xml'])])
 
     def __init__(self, *args, **kwargs):
         super(GraphImport, self).__init__(*args, **kwargs)
