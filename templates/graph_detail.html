@@ -1,3 +1,30 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/Treant.css" %}">
+    <link rel="stylesheet" href="{% static "css/graph_detail.css" %}">
+{% endblock %}
 {% block content %}
+    <div class="container">
+        <div id="first-post" class="comment">
+            <p>
+                <span class="user">Граф № {{ object.id }}</span>
+                <span class="line-truncate">
+                    <em>Treant.js</em>
+                </span>
+            </p>
+        </div>
+        <div class="comment second-level">
+            <p>
+                <span class="user">Граф № {{ object.id }}</span>
+                <span class="line-truncate">
+                    <em>Treant.js</em>
+                </span>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script href="{% static "js/raphael.js" %}"></script>
+    <script href="{% static "js/Treant.js" %}"></script>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import View, DetailView
 from main.models import Graph, Node, Group
 from main.forms import GraphImport
 # Create your views here.
@@ -36,6 +36,17 @@ class ListView(View):
                             exist_elements = list(graph.group_set.filter(eid__in=diff_eids)) + \
                                              list(graph.node_set.filter(eid__in=diff_eids))
                             for obj in exist_elements:
-                                obj.parent.parent = group_obj
-                                obj.parent.save()
+                                tmp_obj = obj
+                                while tmp_obj.parent != None:
+                                    tmp_obj = tmp_obj.parent
+                                else:
+                                    if tmp_obj != group_obj:
+                                        tmp_obj.parent = group_obj
+                                        tmp_obj.save()
         return render(request, "graph_list.html", {"graphs": Graph.objects.all(), "form": form})
+
+
+class GraphDetail(DetailView):
+    queryset = Graph.objects.all()
+    model = Graph
+    template_name = "graph_detail.html"

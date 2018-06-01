@@ -15,7 +15,7 @@
             <button class="btn btn-success">Загрузить</button>
         </form>
         {% for graph in graphs %}
-            <h2>Граф #{{ graph.id }}</h2>
+            <h2><a href="{% url "graph_detail" pk=graph.id %}">Граф #{{ graph.id }}</a></h2>
         {% endfor %}
     </div>
 {% endblock %}
