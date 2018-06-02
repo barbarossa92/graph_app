@@ -43,6 +43,7 @@ class ListView(View):
                                     if tmp_obj != group_obj:
                                         tmp_obj.parent = group_obj
                                         tmp_obj.save()
+                _ = [node.save() for node in nodes if not node.parent]
         return render(request, "graph_list.html", {"graphs": Graph.objects.all(), "form": form})
 
 
