@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic import View, DetailView
 from main.models import Graph, Node, Group
 from main.forms import GraphImport
+from django.shortcuts import redirect
 # Create your views here.
 
 
@@ -44,6 +45,7 @@ class ListView(View):
                                         tmp_obj.parent = group_obj
                                         tmp_obj.save()
                 _ = [node.save() for node in nodes if not node.parent]
+                return redirect("graph_detail", pk=graph.pk)
         return render(request, "graph_list.html", {"graphs": Graph.objects.all(), "form": form})
 
 
