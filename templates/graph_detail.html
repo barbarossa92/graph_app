@@ -1,30 +1,58 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block css %}
-    <link rel="stylesheet" href="{% static "css/Treant.css" %}">
-    <link rel="stylesheet" href="{% static "css/graph_detail.css" %}">
+    <script type="text/javascript" src="{% static 'js/vis.js' %}"></script>
+    <link rel="stylesheet" href="{% static "css/vis.css" %}" type="text/css">
+    <style type="text/css">
+        .graph {
+            width: 600px;
+            height: 500px;
+            border: 1px solid lightgray;
+        }
+    </style>
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <div id="first-post" class="comment">
-            <p>
-                <span class="user">Граф № {{ object.id }}</span>
-                <span class="line-truncate">
-                    <em>Treant.js</em>
-                </span>
-            </p>
+        <div class="graph" id="visualization1">
         </div>
-        <div class="comment second-level">
-            <p>
-                <span class="user">Граф № {{ object.id }}</span>
-                <span class="line-truncate">
-                    <em>Treant.js</em>
-                </span>
-            </p>
-        </div>
-    </div>
 {% endblock %}
 {% block scripts %}
-    <script href="{% static "js/raphael.js" %}"></script>
-    <script href="{% static "js/Treant.js" %}"></script>
+     <script type="text/javascript">
+  // create an array with nodes
+  var nodes = new vis.DataSet([
+      {% for i in object.node_set.all %}
+    {id: {{ i.eid }}, label: '{{ i.text }}' },
+      {% endfor %}
+      {% for j in object.group_set.all %}
+      {id: {{ j.eid }}, label: '{{ j.text }}' },
+      {% endfor %}
+
+  ]);
+
+  // create an array with edges
+  var edges = new vis.DataSet([
+      {% for node in object.node_set.all %}
+        {% if node.parent %}
+        {from: {{ node.eid }}, to: {{ node.parent.eid }} },
+        {% endif %}
+      {% endfor %}
+      {% for group in object.group_set.all %}
+          {% if group.parent %}
+        {from: {{ group.eid }}, to: {{ group.parent.eid }} },
+          {% endif %}
+      {% endfor %}
+  ]);
+
+  // create a network
+  var container = document.getElementById('visualization1');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+    var options = {
+      manipulation: {
+        enabled: false
+      }
+    };
+  var network = new vis.Network(container, data, options);
+</script>
 {% endblock %}
