@@ -32,12 +32,12 @@
   var edges = new vis.DataSet([
       {% for node in object.node_set.all %}
         {% if node.parent %}
-        {from: {{ node.eid }}, to: {{ node.parent.eid }} },
+        {from: {{ node.eid }}, to: {{ node.parent.eid }}, arrows: 'from' },
         {% endif %}
       {% endfor %}
       {% for group in object.group_set.all %}
           {% if group.parent %}
-        {from: {{ group.eid }}, to: {{ group.parent.eid }} },
+        {from: {{ group.eid }}, to: {{ group.parent.eid }}, arrows: 'from' },
           {% endif %}
       {% endfor %}
   ]);
